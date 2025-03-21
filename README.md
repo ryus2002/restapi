@@ -1,5 +1,4 @@
-I understand the ASCII art diagrams are getting distorted. Let me create a more reliable version of the README that will display properly across different platforms, using simpler ASCII art and focusing on the content.
-
+![image](https://github.com/user-attachments/assets/e3e986c3-b336-4d3c-938d-d4d5559f37cb)
 ```markdown:README.md
 # Laravel Redis 快取管理系統
 
@@ -8,24 +7,6 @@ I understand the ASCII art diagrams are getting distorted. Let me create a more 
 ![Redis](https://img.shields.io/badge/Redis-v7-DC382D?logo=redis)
 
 一個功能完善的 Laravel Redis 快取管理系統，提供快取監控儀表板、API 請求快取優化以及全面的快取管理功能。
-
-## 系統概覽
-
-```
-+---------------------------------------------------------------+
-|                                                               |
-|                 Laravel Redis 快取管理系統                     |
-|                                                               |
-+--------------+-----------------------------+-----------------+
-|              |                             |                 |
-|  監控儀表板   |          API 快取層         |   快取管理工具   |
-|              |                             |                 |
-+--------------+-----------------------------+-----------------+
-|              |                             |                 |
-|  Redis 連線   |         Laravel 框架        |    標籤式快取    |
-|              |                             |                 |
-+--------------+-----------------------------+-----------------+
-```
 
 ## 主要功能
 
@@ -42,25 +23,8 @@ I understand the ASCII art diagrams are getting distorted. Let me create a more 
 
 透過直覺化的管理介面，即時監控 Redis 快取系統的健康狀態與效能指標：
 
-```
-+-------------------- 快取監控儀表板 --------------------+
-|                                                       |
-| +-------------+ +---------------+ +---------------+   |
-| | 快取命中率   | | 記憶體使用量  | | 總快取鍵數     |   |
-| |    85%      | |    256MB      | |    1,234      |   |
-| +-------------+ +---------------+ +---------------+   |
-|                                                       |
-| +-------------+ +---------------+ +---------------+   |
-| | 連線狀態     | | 運行時間      | | 客戶端數量     |   |
-| |   正常       | |  3d 5h 12m   | |      8        |   |
-| +-------------+ +---------------+ +---------------+   |
-|                                                       |
-| +-----------------------------------------------+     |
-| |            一鍵清除所有快取                    |     |
-| +-----------------------------------------------+     |
-|                                                       |
-+-------------------------------------------------------+
-```
+![image](https://github.com/user-attachments/assets/2f5cab01-7493-4627-bc5d-7e7f88faa80a)
+
 
 - **即時統計數據**：顯示快取命中率、記憶體使用量、總快取鍵數等關鍵指標
 - **連線狀態監控**：監控 Redis 伺服器連線狀態與客戶端數量
