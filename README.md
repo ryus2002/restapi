@@ -1,5 +1,3 @@
-I understand the placeholder images aren't displaying properly. Let me create a README.md with actual diagrams and images instead of placeholders. I'll use Mermaid diagrams for the technical flow charts and ASCII art for visual elements where appropriate.
-
 ```markdown:README.md
 # Laravel Redis 快取管理系統
 
@@ -8,24 +6,6 @@ I understand the placeholder images aren't displaying properly. Let me create a 
 ![Redis](https://img.shields.io/badge/Redis-v7-DC382D?logo=redis)
 
 一個功能完善的 Laravel Redis 快取管理系統，提供快取監控儀表板、API 請求快取優化以及全面的快取管理功能。
-
-## 系統概覽
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                                                                 │
-│                 Laravel Redis 快取管理系統                       │
-│                                                                 │
-├─────────────┬─────────────────────────────────┬─────────────────┤
-│             │                                 │                 │
-│  監控儀表板  │          API 快取層            │   快取管理工具   │
-│             │                                 │                 │
-├─────────────┼─────────────────────────────────┼─────────────────┤
-│             │                                 │                 │
-│  Redis 連線  │         Laravel 框架           │    標籤式快取    │
-│             │                                 │                 │
-└─────────────┴─────────────────────────────────┴─────────────────┘
-```
 
 ## 主要功能
 
@@ -42,25 +22,8 @@ I understand the placeholder images aren't displaying properly. Let me create a 
 
 透過直覺化的管理介面，即時監控 Redis 快取系統的健康狀態與效能指標：
 
-```
-┌─────────────────── 快取監控儀表板 ───────────────────┐
-│                                                      │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐    │
-│  │ 快取命中率   │ │ 記憶體使用量 │ │ 總快取鍵數  │    │
-│  │    85%      │ │   256MB     │ │   1,234     │    │
-│  └─────────────┘ └─────────────┘ └─────────────┘    │
-│                                                      │
-│  ┌─────────────┐ ┌─────────────┐ ┌─────────────┐    │
-│  │ 連線狀態    │ │ 運行時間    │ │ 客戶端數量  │    │
-│  │   正常      │ │  3d 5h 12m  │ │     8       │    │
-│  └─────────────┘ └─────────────┘ └─────────────┘    │
-│                                                      │
-│  ┌─────────────────────────────────────────────┐    │
-│  │            一鍵清除所有快取                  │    │
-│  └─────────────────────────────────────────────┘    │
-│                                                      │
-└──────────────────────────────────────────────────────┘
-```
+![image](https://github.com/user-attachments/assets/fbc17513-f69b-4c7f-8938-c9faf65fc210)
+
 
 - **即時統計數據**：顯示快取命中率、記憶體使用量、總快取鍵數等關鍵指標
 - **連線狀態監控**：監控 Redis 伺服器連線狀態與客戶端數量
