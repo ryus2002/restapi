@@ -299,12 +299,7 @@ public function clearCacheByTag(string $tag): bool
 
 ## 安裝指南
 
-### 1. 複製專案
-
-```bash
-git clone https://your-repository-url/laravel-redis-cache-manager.git
-cd laravel-redis-cache-manager
-```
+### 1. 複製本專案
 
 ### 2. 安裝相依套件
 
