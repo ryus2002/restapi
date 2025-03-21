@@ -1,3 +1,32 @@
+## 系統架構圖
+
+```mermaid
+graph TD
+    A[客戶端請求] --> B[Laravel 路由]
+    B --> C{CacheRequestFingerprint 中間件}
+    C -- 快取命中 --> D[返回快取資料]
+    C -- 快取未命中 --> E[控制器處理]
+    E --> F[資料庫查詢]
+    F --> G[返回資料]
+    G --> H[儲存至快取]
+    H --> I[返回回應]
+    D --> J[完成請求]
+    I --> J
+    
+    K[管理介面] --> L[快取監控儀表板]
+    L --> M[CacheService]
+    M --> N[Redis 伺服器]
+    
+    O[Redis 連線測試] --> P[多層次診斷]
+    P --> Q[生成報告]
+```
+
+上圖展示了 Laravel Redis 快取管理系統的整體架構，包括：
+1. API 請求處理流程
+2. 快取層與資料庫層的交互
+3. 監控系統的資料收集流程
+4. 各元件之間的關係
+
 ![image](https://github.com/user-attachments/assets/dac0cdaf-cdc5-4afc-b87c-a4d6e8c15121)
 
 ```markdown:README.md
@@ -266,35 +295,6 @@ public function clearCacheByTag(string $tag): bool
     }
 }
 ```
-
-## 系統架構圖
-
-```mermaid
-graph TD
-    A[客戶端請求] --> B[Laravel 路由]
-    B --> C{CacheRequestFingerprint 中間件}
-    C -- 快取命中 --> D[返回快取資料]
-    C -- 快取未命中 --> E[控制器處理]
-    E --> F[資料庫查詢]
-    F --> G[返回資料]
-    G --> H[儲存至快取]
-    H --> I[返回回應]
-    D --> J[完成請求]
-    I --> J
-    
-    K[管理介面] --> L[快取監控儀表板]
-    L --> M[CacheService]
-    M --> N[Redis 伺服器]
-    
-    O[Redis 連線測試] --> P[多層次診斷]
-    P --> Q[生成報告]
-```
-
-上圖展示了 Laravel Redis 快取管理系統的整體架構，包括：
-1. API 請求處理流程
-2. 快取層與資料庫層的交互
-3. 監控系統的資料收集流程
-4. 各元件之間的關係
 
 ## 系統需求
 
