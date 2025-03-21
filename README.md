@@ -30,15 +30,6 @@
 - **一鍵清除功能**：提供快速清除所有快取的功能
 ```
 
-```php
-// CacheMonitorController.php 中的儀表板實現
-public function index()
-{
-    $stats = $this->cacheService->getCacheStats();
-    return view('admin.cache-monitor', compact('stats'));
-}
-```
-
 ### API 自動快取
 
 採用智能請求指紋技術，自動為 API 回應建立快取，提升應用程式效能：
