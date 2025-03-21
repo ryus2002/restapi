@@ -1,3 +1,5 @@
+![image](https://github.com/user-attachments/assets/dac0cdaf-cdc5-4afc-b87c-a4d6e8c15121)
+
 ```markdown:README.md
 # Laravel Redis 快取管理系統
 
@@ -22,7 +24,8 @@
 
 透過直覺化的管理介面，即時監控 Redis 快取系統的健康狀態與效能指標：
 
-![image](https://github.com/user-attachments/assets/fbc17513-f69b-4c7f-8938-c9faf65fc210)
+![image](https://github.com/user-attachments/assets/1728cda6-d8ca-466b-860a-700577cd1e3d)
+
 
 
 - **即時統計數據**：顯示快取命中率、記憶體使用量、總快取鍵數等關鍵指標
