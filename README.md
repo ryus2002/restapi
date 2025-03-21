@@ -1,5 +1,3 @@
-I understand the placeholder images aren't displaying properly. Let me create a README.md with actual diagrams and images instead of placeholders. I'll use Mermaid diagrams for the technical flow charts and ASCII art for visual elements where appropriate.
-
 ```markdown:README.md
 # Laravel Redis 快取管理系統
 
