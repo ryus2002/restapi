@@ -442,5 +442,3 @@ protected $middlewareGroups = [
 ## 授權
 
 本專案使用 MIT 授權 - 詳情請參閱 [LICENSE](LICENSE) 檔案。
-```
-
