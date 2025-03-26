@@ -5,19 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 
 class RedisTestController extends Controller
 {
     public function testConnection()
     {
         $results = [];
-        // 1. 環境設定資訊
+        // 1. 環境設定資訊 - 使用 config() 而不是 env()
         $results['environment'] = [
-            'redis_host' => env('REDIS_HOST', '127.0.0.1'),
-            'redis_port' => env('REDIS_PORT', 6379),
-            'redis_client' => env('REDIS_CLIENT', 'phpredis'),
-            'cache_driver' => env('CACHE_DRIVER', 'file'),
-            'has_password' => !empty(env('REDIS_PASSWORD')),
+            'redis_host' => config('database.redis.default.host', '127.0.0.1'),
+            'redis_port' => config('database.redis.default.port', 6379),
+            'redis_client' => config('database.redis.client', 'phpredis'),
+            'cache_driver' => config('cache.default', 'file'),
+            'has_password' => !empty(config('database.redis.default.password')),
             'app_container' => gethostname(),
             'php_version' => phpversion(),
         ];
@@ -27,11 +28,11 @@ class RedisTestController extends Controller
             'predis_library' => class_exists('Predis\Client') ? '已安裝' : '未安裝',
         ];
         
-        // 3. 嘗試 socket 層面的基本連接
+        // 3. 嘗試 socket 層面的基本連接 - 使用 config() 而不是 env()
         try {
             $socket = @fsockopen(
-                env('REDIS_HOST', '127.0.0.1'),
-                env('REDIS_PORT', 6379),
+                config('database.redis.default.host', '127.0.0.1'),
+                config('database.redis.default.port', 6379),
                 $errno,
                 $errstr,
                 2
@@ -53,13 +54,13 @@ class RedisTestController extends Controller
             ];
     }
         
-        // 4. 嘗試直接使用 PHP Redis 擴展
+        // 4. 嘗試直接使用 PHP Redis 擴展 - 使用 config() 而不是 env()
         try {
             if (extension_loaded('redis')) {
                 $redis = new \Redis();
                 $connected = @$redis->connect(
-                    env('REDIS_HOST', '127.0.0.1'),
-                    env('REDIS_PORT', 6379),
+                    config('database.redis.default.host', '127.0.0.1'),
+                    config('database.redis.default.port', 6379),
                     2.0
                 );
                 
@@ -69,15 +70,16 @@ class RedisTestController extends Controller
                 
                 if ($connected) {
                     // 如果設置了密碼，嘗試認證
-                    if (env('REDIS_PASSWORD')) {
-                        $results['direct_redis_test']['auth'] = $redis->auth(env('REDIS_PASSWORD'));
-}
+                    $password = config('database.redis.default.password');
+                    if ($password) {
+                        $results['direct_redis_test']['auth'] = $redis->auth($password);
+                    }
                     
                     $results['direct_redis_test']['ping'] = $redis->ping();
                     $testKey = 'direct_test_' . time();
                     $redis->set($testKey, 'test_value');
                     $results['direct_redis_test']['get_set'] = $redis->get($testKey) === 'test_value';
-}
+                }
             } else {
                 $results['direct_redis_test'] = [
                     'message' => 'PHP Redis 擴展未安裝'
@@ -118,6 +120,11 @@ class RedisTestController extends Controller
                 'exception' => $e->getMessage()
             ];
         }
+        
+        // 添加一个简单的 Redis 连接状态标志
+        $results['debug'] = [
+            'redis_connected' => isset($results['laravel_redis']['ping']) && $results['laravel_redis']['ping']
+        ];
         
         // 6. 診斷建議
         $results['diagnosis'] = $this->getDiagnosis($results);

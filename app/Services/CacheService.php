@@ -74,13 +74,13 @@ class CacheService
             $pingResult = $redis->ping();
             
             $info = $redis->info();
-            
+
             // 獲取所有鍵以確認 Redis 中有數據
             $allKeys = $redis->keys('*');
             
             // Redis info 返回一維陣列，直接存取
-            $hits = (int)($info['keyspace_hits'] ?? 0);
-            $misses = (int)($info['keyspace_misses'] ?? 0);
+            $hits = (int)($info['Stats']['keyspace_hits'] ?? 0);
+            $misses = (int)($info['Stats']['keyspace_misses'] ?? 0);
             $totalOps = $hits + $misses;
             
             // 獲取所有以 api: 開頭的快取鍵（嘗試多種前綴模式）
@@ -92,20 +92,23 @@ class CacheService
                 'hits' => $hits,
                 'misses' => $misses,
                 'hit_rate' => $totalOps > 0 ? round(($hits / $totalOps) * 100, 2) : 0,
-                'memory_usage' => $info['used_memory_human'] ?? '0B',
+                'memory_usage' => $info['Memory']['used_memory_human'] ?? '0B',
                 'total_keys' => count($apiKeys),
-                'uptime' => (int)($info['uptime_in_seconds'] ?? 0),
-                'connected_clients' => (int)($info['connected_clients'] ?? 0),
+                'uptime' => (int)($info['Server']['uptime_in_seconds'] ?? 0),
+                'connected_clients' => (int)($info['Clients']['connected_clients'] ?? 0),
                 // 調試資訊
                 'debug' => [
-                    'redis_connected' => ($pingResult === true || $pingResult === '+PONG'),
-                    'redis_version' => $info['redis_version'] ?? 'unknown',
+                    'redis_connected' => ($pingResult === true || $pingResult === '+PONG' || 
+                                         (is_object($pingResult) && method_exists($pingResult, '__toString') && 
+                                          (string)$pingResult === 'PONG') ||
+                                         (is_object($pingResult) && get_class($pingResult) === 'Predis\Response\Status')),
+                    'redis_version' => $info['Server']['redis_version'] ?? 'unknown',
                     'all_keys_count' => count($allKeys),
                     'all_keys_sample' => array_slice($allKeys, 0, 10),  // 最多顯示10個鍵
                     'api_keys_count' => count($apiKeys),
                     'api_keys_alt_count' => count($apiKeysAlt),
                     'cache_prefix' => $prefix,
-                    'db_index' => $info['db0'] ?? null,
+                    'db_index' => $info['Keyspace']['db0'] ?? null,
                     'config' => [
                         'cache_driver' => config('cache.default'),
                         'redis_client' => config('database.redis.client'),
