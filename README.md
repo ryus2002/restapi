@@ -417,3 +417,9 @@ protected $middlewareGroups = [
 ## 授權
 
 本專案使用 MIT 授權 - 詳情請參閱 [LICENSE](LICENSE) 檔案。
+
+## Demo畫面
+
+![image](https://github.com/user-attachments/assets/32fa0e09-610f-487b-84af-45d99b957ca3)
+![image](https://github.com/user-attachments/assets/71468991-f60e-44d4-931f-fc9980471d71)
+![image](https://github.com/user-attachments/assets/71646f9b-c04b-4809-994c-75fb3f102507)
